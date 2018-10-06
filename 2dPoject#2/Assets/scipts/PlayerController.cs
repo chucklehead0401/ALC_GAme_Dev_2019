@@ -1,61 +1,76 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     //Player movement variables
     public float moveSpeed;
-    public float jumpHight;
-    private bool doublejump;
-   
+    public float jumpHeight;
+    private bool doubleJump;
+
     //Player grounded variables
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
-    public bool grounded;
-   
+    private bool grounded;
+
     //Non-Slide Player
     private float moveVelocity;
 
 
-	// Use this for initialization
-	void Start () {
-		
-    }
-    private void FixedUpdate()
+    // Use this for initialization
+    void Start()
     {
-        grounded = Pysics2D.OverLapCircle(groundCheck.position, groundCheckRadius, whatIsGround)
 
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        //This code makes the character jump
-        if(imput.getdown (KeyCode.pace)&& grounded ){
-          
-            // double jump code
-            if (grounded)
-                doublejump = false;
-            if (imput GetKeyDown (KeyCode.Space)&& !doublejump! && !grounded) {
-                doublejump = true;
-            }
-            //Non-Slide Player
-            moveVelocity = 0f;
+    void FixedUpdate()
+    {
+        grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+    }
 
-            // this code makes the character move from side to side using the A&D keys
-            if (imput.GetKey(KeyCode.d)){
-                //GetComponent<rigidbody2D>().velocity = new vector2(moveSpeed, Get Compomponent<rigidbody2D>
-                moveVelocity = -moveVelocity;
-            }
-            if (imput.GetKey(KeyCode.A)) ;
-                //GetComponent<rigidbody2D>().velocity = new vector2(moveSpeed, Get Compomponent<rigidbody2D>
-                moveVelocity = -moveSpeed}
-        
-            }
-            GetComponent<rigidbody2D>().velocity = new vector2(moveSpeed, GetComponent <rigidbody2D>
+    // Update is called once per frame
+    void Update()
+    {
+
+        // This code makes the character jump
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            Jump();
         }
-		
-	}
+
+        // Double jump code
+        if (grounded)
+            doubleJump = false;
+
+        if (Input.GetKeyDown(KeyCode.Space) && !doubleJump && !grounded)
+        {
+            Jump();
+            doubleJump = true;
+        }
+        //Non-Slide Player
+        moveVelocity = 0f;
+
+        // This code makes the character move from side to side using the A&D keys
+        if (Input.GetKey(KeyCode.D))
+        {
+            //GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+            moveVelocity = moveSpeed;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            //GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+            moveVelocity = -moveSpeed;
+        }
+
+        GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
+
+
+    }
+
+    public void Jump()
+    {
+        GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
+    }
 }
