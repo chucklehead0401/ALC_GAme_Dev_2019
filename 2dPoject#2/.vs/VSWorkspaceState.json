@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Assets",
+    "\\Assets\\Scenes",
+    "\\Assets\\scipts",
+    "\\Packages"
   ],
-  "SelectedNode": "\\Packages",
+  "SelectedNode": "\\Assets\\Scenes\\LevelManager.cs",
   "PreviewInSolutionExplorer": false
 }
